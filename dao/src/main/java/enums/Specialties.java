@@ -1,0 +1,11 @@
+package enums;
+
+public enum Specialties {
+    THERAPIST,
+    OPERATOR,
+    NEUROLOGIST,
+    OPHTHALMOLOGIST,
+    DENTIST,
+    OTORHINOLARINGOLOGIST,
+    TRAUMATOLOGIST
+}

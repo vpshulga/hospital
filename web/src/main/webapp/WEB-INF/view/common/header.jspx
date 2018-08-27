@@ -1,0 +1,131 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: vpshulga
+  Date: 17.07.2018
+  Time: 9:03
+  To change this template use File | Settings | File Templates.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          version="2.0">
+
+
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}">Hospital</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <fmt:setLocale value="${sessionScope.locale}"/>
+                <fmt:setBundle basename="messages" var="i18n"/>
+                <c:url var="path" value="/frontController?command=${sessionScope.pageName}"></c:url>
+                <c:choose>
+                    <c:when test="${not empty user and user.role eq 'REG_WORKER'}">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/frontController?command=registration"><fmt:message
+                                    bundle="${i18n}" key="reg.header"/></a>
+                        </li>
+
+
+                    </c:when>
+                    <c:when test="${not empty user and user.role eq 'DOCTOR'}">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/frontController?command=doctor"><fmt:message
+                                    bundle="${i18n}" key="doc.header"/></a>
+                        </li>
+
+                    </c:when>
+                    <c:when test="${not empty user and user.role eq 'PATIENT'}">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/frontController?command=card"><fmt:message
+                                    bundle="${i18n}" key="pat.header"/></a>
+                        </li>
+
+                    </c:when>
+                    <c:when test="${not empty user and user.role eq 'ADMIN'}">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/frontController?command=admin"><fmt:message
+                                    bundle="${i18n}" key="admin.header"/></a>
+                        </li>
+
+                    </c:when>
+                </c:choose>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+                <c:if test="${not empty user}">
+                    <li><span class="text">
+                        <br/>
+                        <fmt:message
+                                bundle="${i18n}" key="header.hello"/>, <span class="login">${user.login}</span>!
+                        <br/><fmt:message
+                                bundle="${i18n}" key="header.hello.role"/>
+                         <c:choose>
+                                        <c:when test="${user.role eq 'ADMIN'}">
+                                            <span class="login"><fmt:message bundle="${i18n}" key="roles.admin"/></span>
+                                        </c:when>
+                                        <c:when test="${user.role eq 'DOCTOR'}">
+                                            <span class="login"><fmt:message bundle="${i18n}" key="roles.doc"/></span>
+                                        </c:when>
+                                        <c:when test="${user.role eq 'REG_WORKER'}">
+                                            <span class="login"><fmt:message bundle="${i18n}" key="roles.reg"/></span>
+                                        </c:when>
+                                        <c:when test="${user.role eq 'PATIENT'}">
+                                            <span class="login"><fmt:message bundle="${i18n}" key="roles.pat"/></span>
+                                        </c:when>
+                                    </c:choose>
+                        </span>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/frontController?command=change"><fmt:message key="header.changepass"
+                                                                                                                  bundle="${i18n}"/></a>
+                        </li>
+                        <c:choose>
+                            <c:when test="${sessionScope.locale eq 'en'}">
+                                <li><a href="${path}&amp;locale=ru"><fmt:message key="header.locale.ru"
+                                                                                 bundle="${i18n}"/></a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="${path}&amp;locale=en"><fmt:message key="header.locale.en"
+                                                                                 bundle="${i18n}"/></a></li>
+                            </c:otherwise>
+                        </c:choose>
+                        <li><a href="${pageContext.request.contextPath}/frontController?command=logout">
+                            <span class="glyphicon glyphicon-log-out"></span><fmt:message key="header.logout"
+                                                                                          bundle="${i18n}"/></a></li>
+                    </li>
+                </c:if>
+                <c:if test="${empty user and not (pageName eq 'Login')}">
+                    <c:choose>
+                        <c:when test="${sessionScope.locale eq 'en'}">
+                            <li><a href="${path}&amp;locale=ru"><fmt:message key="header.locale.ru"
+                                                                             bundle="${i18n}"/></a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a href="${path}&amp;locale=en"><fmt:message key="header.locale.en"
+                                                                             bundle="${i18n}"/></a></li>
+                        </c:otherwise>
+                    </c:choose>
+                    <li><a href="${pageContext.request.contextPath}/frontController?command=login">
+                        <span class="glyphicon glyphicon-log-in"></span><fmt:message key="header.login"
+                                                                                     bundle="${i18n}"/></a></li>
+                </c:if>
+                <c:if test="${empty user and (pageName eq 'Login')}">
+                    <c:choose>
+                        <c:when test="${sessionScope.locale eq 'en'}">
+                            <li><a href="${path}&amp;locale=ru"><fmt:message key="header.locale.ru"
+                                                                             bundle="${i18n}"/></a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a href="${path}&amp;locale=en"><fmt:message key="header.locale.en"
+                                                                             bundle="${i18n}"/></a></li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:if>
+
+            </ul>
+        </div>
+    </nav>
+</jsp:root>

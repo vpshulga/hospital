@@ -11,23 +11,30 @@ public class DataSource {
     private static DataSource dataSource;
     private ComboPooledDataSource comboPooledDataSource;
 
-    private final String URL;
-    private final String DRIVER;
-    private final String USER;
-    private final String PASSWORD;
+    public static final String URL;
+    public static final String DRIVER;
+    public static final String USER;
+    public static final String PASSWORD;
+    public static final String HBM2DDL_AUTO;
+    public static final String CURRENT_SESSION_CONTEXT_CLASS;
+    private static ResourceBundle rb = ResourceBundle.getBundle("db");
 
-    {
-        ResourceBundle rb = ResourceBundle.getBundle("db");
+    static  {
+
         if (rb == null) {
             URL = "UNDEFINED";
             USER = "UNDEFINED";
             PASSWORD = "UNDEFINED";
+            HBM2DDL_AUTO = "UNDEFINED";
+            CURRENT_SESSION_CONTEXT_CLASS = "UNDEFINED";
             DRIVER = "com.mysql.cj.jdbc.Driver";
         } else {
             URL = rb.getString("url");
             USER = rb.getString("user");
             PASSWORD = rb.getString("password");
             DRIVER = rb.getString("driver");
+            HBM2DDL_AUTO = rb.getString("hibernate.hbm2ddl.auto");
+            CURRENT_SESSION_CONTEXT_CLASS = rb.getString("hibernate.current_session_context_class");
         }
     }
 
@@ -55,5 +62,9 @@ public class DataSource {
 
     public Connection getConnection() throws SQLException {
         return comboPooledDataSource.getConnection();
+    }
+
+    public String getProperty(String key) {
+        return rb.getString(key);
     }
 }

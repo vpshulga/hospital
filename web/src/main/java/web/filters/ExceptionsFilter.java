@@ -1,18 +1,16 @@
 package web.filters;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.log4j.Logger;
-import web.servlet.FrontController;
-
+import java.io.IOException;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.logging.log4j.LogManager;
 
 import static web.command.Controller.MAIN_PAGE;
 
 public class ExceptionsFilter implements Filter {
-    private static final Logger LOGGER = Logger.getLogger(ExceptionsFilter.class);
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(ExceptionsFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -24,17 +22,18 @@ public class ExceptionsFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         try {
+            logger.info("test");
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (Exception e) {
 
             req.setAttribute("errorMsg", "error " + e.getMessage());
 
 
-            LOGGER.warn(ExceptionUtils.getStackTrace(e));
+            logger.error(ExceptionUtils.getStackTrace(e));
             try {
                 req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
             } catch (ServletException | IOException e1) {
-                LOGGER.warn(ExceptionUtils.getStackTrace(e));
+                logger.error(ExceptionUtils.getStackTrace(e));
             }
         }
     }

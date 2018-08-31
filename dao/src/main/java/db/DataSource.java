@@ -65,6 +65,6 @@ public class DataSource {
     }
 
     public String getProperty(String key) {
-        return rb.getString(key);
+        return (String) rb.getObject(key);
     }
 }

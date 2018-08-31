@@ -33,12 +33,12 @@ public class HibernateUtil {
             try {
                 StandardServiceRegistryBuilder registryBuilder = new StandardServiceRegistryBuilder();
                 Map<String, String> settings = new HashMap<>();
-                settings.put(Environment.DRIVER, DataSource.getInstance().getProperty(DRIVER));
-                settings.put(Environment.URL, DataSource.getInstance().getProperty(URL));
-                settings.put(Environment.USER, DataSource.getInstance().getProperty(USER));
-                settings.put(Environment.PASS, DataSource.getInstance().getProperty(PASSWORD));
-                settings.put(Environment.HBM2DDL_AUTO, DataSource.getInstance().getProperty(Environment.HBM2DDL_AUTO));
-                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, DataSource.getInstance().getProperty(Environment.CURRENT_SESSION_CONTEXT_CLASS));
+                settings.put(Environment.DRIVER, DataSource.DRIVER);
+                settings.put(Environment.URL, DataSource.URL);
+                settings.put(Environment.USER, DataSource.USER);
+                settings.put(Environment.PASS, DataSource.PASSWORD);
+                settings.put(Environment.HBM2DDL_AUTO, DataSource.HBM2DDL_AUTO);
+                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, DataSource.CURRENT_SESSION_CONTEXT_CLASS);
 
                 registryBuilder.applySettings(settings);
                 registry = registryBuilder.build();

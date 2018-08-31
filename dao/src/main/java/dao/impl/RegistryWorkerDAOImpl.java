@@ -78,7 +78,7 @@ public class RegistryWorkerDAOImpl implements RegistryWorkerDAO {
         psRegSave.setString(4,registryWorker.getSex().toString());
         psRegSave.setString(5, registryWorker.getEducation().toString());
         psRegSave.setInt(6, registryWorker.getExperience());
-        psRegSave.setInt(7, registryWorker.getUserId());
+        psRegSave.setLong(7, registryWorker.getUserId());
         psRegSave.executeUpdate();
         ResultSet rs = psRegSave.getGeneratedKeys();
         if (rs.next()){
@@ -102,7 +102,7 @@ public class RegistryWorkerDAOImpl implements RegistryWorkerDAO {
             registryWorker.setSex(Sex.valueOf(rs.getString(5)));
             registryWorker.setEducation(Educations.valueOf(rs.getString(6)));
             registryWorker.setExperience(rs.getInt(7));
-            registryWorker.setUserId(rs.getInt(8));
+            registryWorker.setUserId(rs.getLong(8));
         }
         DaoUtils.close(rs);
         return registryWorker;
@@ -117,7 +117,7 @@ public class RegistryWorkerDAOImpl implements RegistryWorkerDAO {
         psRegUpdate.setString(4, registryWorker.getSex().toString());
         psRegUpdate.setString(5, registryWorker.getEducation().toString());
         psRegUpdate.setInt(6, registryWorker.getExperience());
-        psRegUpdate.setInt(7, registryWorker.getUserId());
+        psRegUpdate.setLong(7, registryWorker.getUserId());
         psRegUpdate.executeUpdate();
     }
 
@@ -141,7 +141,7 @@ public class RegistryWorkerDAOImpl implements RegistryWorkerDAO {
             re.setSex(Sex.valueOf(rs.getString(5)));
             re.setEducation(Educations.valueOf(rs.getString(6)));
             re.setExperience(rs.getInt(7));
-            re.setUserId(rs.getInt(8));
+            re.setUserId(rs.getLong(8));
             list.add(re);
         }
         DaoUtils.close(rs);

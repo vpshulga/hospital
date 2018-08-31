@@ -5,15 +5,14 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface UserService {
-    User save(User user);
+    void create(User user);
 
-    User get(Serializable id);
+    User findOne(Serializable id);
 
     void update(User user);
 
-    int delete(Serializable id);
+    void delete(User user);
 
-    User getByLogin(String login);
+    void deleteById(Long id);
 
-    List<String> getAllLogins();
 }

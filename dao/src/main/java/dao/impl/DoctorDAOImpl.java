@@ -88,7 +88,7 @@ public class DoctorDAOImpl implements DoctorDAO{
         psDoctorSave.setString(5, doctor.getEducation().toString());
         psDoctorSave.setInt(6, doctor.getExperience());
         psDoctorSave.setString(7, doctor.getSpetialty().toString());
-        psDoctorSave.setInt(8, doctor.getUserId());
+        psDoctorSave.setLong(8, doctor.getUserId());
         psDoctorSave.executeUpdate();
         ResultSet rs = psDoctorSave.getGeneratedKeys();
         if (rs.next()){
@@ -113,7 +113,7 @@ public class DoctorDAOImpl implements DoctorDAO{
             doctor.setEducation(Educations.valueOf(rs.getString(6)));
             doctor.setExperience(rs.getInt(7));
             doctor.setSpetialty(Specialties.valueOf(rs.getString(8)));
-            doctor.setUserId(rs.getInt(9));
+            doctor.setUserId(rs.getLong(9));
         }
         DaoUtils.close(rs);
         return doctor;
@@ -129,7 +129,7 @@ public class DoctorDAOImpl implements DoctorDAO{
         psDoctorUpdate.setString(5, doctor.getEducation().toString());
         psDoctorUpdate.setInt(6, doctor.getExperience());
         psDoctorUpdate.setString(7, doctor.getSpetialty().toString());
-        psDoctorUpdate.setInt(8, doctor.getUserId());
+        psDoctorUpdate.setLong(8, doctor.getUserId());
         psDoctorUpdate.executeUpdate();
     }
 
@@ -154,7 +154,7 @@ public class DoctorDAOImpl implements DoctorDAO{
             doc.setEducation(Educations.valueOf(rs.getString(6)));
             doc.setExperience(rs.getInt(7));
             doc.setSpetialty(Specialties.valueOf(rs.getString(8)));
-            doc.setUserId(rs.getInt(9));
+            doc.setUserId(rs.getLong(9));
             list.add(doc);
         }
         DaoUtils.close(rs);
@@ -176,7 +176,7 @@ public class DoctorDAOImpl implements DoctorDAO{
             doctor.setEducation(Educations.valueOf(rs.getString(6)));
             doctor.setExperience(rs.getInt(7));
             doctor.setSpetialty(Specialties.valueOf(rs.getString(8)));
-            doctor.setUserId(rs.getInt(9));
+            doctor.setUserId(rs.getLong(9));
         }
         DaoUtils.close(rs);
         return doctor;

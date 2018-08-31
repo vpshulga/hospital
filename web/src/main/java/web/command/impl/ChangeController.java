@@ -11,7 +11,7 @@ import services.impl.UserServiceImpl;
 import web.command.Controller;
 
 public class ChangeController implements Controller {
-    private UserService userService = UserServiceImpl.getInstance();
+//    private UserService userService = UserServiceImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -25,7 +25,7 @@ public class ChangeController implements Controller {
             if (oldPass != null && oldPass.equals(user.getPassword())) {
                 if (newPass != null && newPass.equals(confirm)) {
                     user.setPassword(newPass);
-                    userService.update(user);
+//                    userService.update(user);
                     req.setAttribute("successChange", "Пароль изменен");
                 } else {
                     req.setAttribute("noSuccessChange", "Пароли не совпадают");

@@ -8,12 +8,12 @@ public abstract class Person {
     private String lastName;
     private int age;
     private Sex sex;
-    private int userId;
+    private Long userId;
 
     public Person() {
     }
 
-    public Person(String firstName, String lastName, int age, Sex sex, int userId) {
+    public Person(String firstName, String lastName, int age, Sex sex, Long userId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -53,11 +53,11 @@ public abstract class Person {
         this.sex = sex;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

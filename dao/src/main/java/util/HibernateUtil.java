@@ -37,8 +37,8 @@ public class HibernateUtil {
                 settings.put(Environment.URL, DataSource.getInstance().getProperty(URL));
                 settings.put(Environment.USER, DataSource.getInstance().getProperty(USER));
                 settings.put(Environment.PASS, DataSource.getInstance().getProperty(PASSWORD));
-                settings.put(Environment.HBM2DDL_AUTO, DataSource.getInstance().getProperty(HBM2DDL_AUTO));
-                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, DataSource.getInstance().getProperty(CURRENT_SESSION_CONTEXT_CLASS));
+                settings.put(Environment.HBM2DDL_AUTO, DataSource.getInstance().getProperty(Environment.HBM2DDL_AUTO));
+                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, DataSource.getInstance().getProperty(Environment.CURRENT_SESSION_CONTEXT_CLASS));
 
                 registryBuilder.applySettings(settings);
                 registry = registryBuilder.build();

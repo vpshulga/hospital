@@ -10,7 +10,7 @@ public class RegistryWorker extends MedWorker {
     }
 
     public RegistryWorker(String firstName, String lastName, int age, Sex sex,
-                          Educations education, int experience, int userId) {
+                          Educations education, int experience, Long userId) {
         super(firstName, lastName, age, sex, education, experience, userId);
     }
 

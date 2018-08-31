@@ -1,11 +1,22 @@
 package entities;
 
 import enums.Roles;
+import java.io.Serializable;
+import javax.persistence.*;
 
-public class User {
-    private int id;
+@Entity
+@Table(name = "users")
+public class User implements Serializable{
+    @Id
+    @GeneratedValue
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
+    @Column(name = "login")
     private String login;
+    @Column(name = "password")
     private String password;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private Roles role;
 
     public User() {
@@ -17,11 +28,11 @@ public class User {
         this.role = role;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

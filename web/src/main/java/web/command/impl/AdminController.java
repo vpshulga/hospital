@@ -1,7 +1,8 @@
 package web.command.impl;
 
+import dao.UserDAO;
+import dao.impl.UserDAOImpl;
 import entities.Doctor;
-import entities.Patient;
 import entities.RegistryWorker;
 import entities.User;
 import enums.Educations;
@@ -21,13 +22,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class AdminController implements Controller {
     private DoctorService doctorService = DoctorServiceImpl.getInstance();
-    private UserService userService = UserServiceImpl.getInstance();
+    private UserDAO userDAO = new  UserDAOImpl(User.class);
     private RegistryWorkerService registryWorkerService = RegistryWorkerServiceImpl.getInstance();
 
     @Override
@@ -51,30 +50,33 @@ public class AdminController implements Controller {
 
     private void addDoctor(HttpServletRequest req) {
         if (req.getParameter("firstName") != null && req.getParameter("lastName") != null) {
-            User user = userService.save(new User());
+            User user = new User();
+            userDAO.create(user);
+            user.setLogin(req.getParameter("login"));
+            user.setPassword(req.getParameter("password"));
+            user.setRole(Roles.DOCTOR);
             Doctor doctor = doctorService.save(new Doctor(req.getParameter("firstName"), req.getParameter("lastName"),
                     Integer.parseInt(req.getParameter("age")), Sex.valueOf(req.getParameter("sex")),
                     Educations.valueOf(req.getParameter("education")), Integer.parseInt(req.getParameter("experience")),
                     Specialties.valueOf(req.getParameter("spetiality")), user.getId()));
-            user.setLogin(req.getParameter("login"));
-            user.setPassword(req.getParameter("password"));
-            user.setRole(Roles.DOCTOR);
-            if (!userService.getAllLogins().contains(user.getLogin())) {
-                userService.update(user);
-                boolean isCreatedDoc = true;
-                req.setAttribute("isCreatedDoc", isCreatedDoc);
-            } else {
-                doctorService.delete(doctor.getId());
-                userService.delete(user.getId());
-                String reapetedUser = "Current user is exist";
-                req.setAttribute("repDoc", reapetedUser);
-            }
+
+//            if (!userService.getAllLogins().contains(user.getLogin())) {
+//                userService.update(user);
+//                boolean isCreatedDoc = true;
+//                req.setAttribute("isCreatedDoc", isCreatedDoc);
+//            } else {
+//                doctorService.delete(doctor.getId());
+//                userService.delete(user.getId());
+//                String reapetedUser = "Current user is exist";
+//                req.setAttribute("repDoc", reapetedUser);
+//            }
         }
     }
 
     private void addRegWorker(HttpServletRequest req) {
         if (req.getParameter("firstNameReg") != null && req.getParameter("lastNameReg") != null) {
-            User user = userService.save(new User());
+            User user = new User();
+            userDAO.create(user);
             RegistryWorker registryWorker = registryWorkerService.save(new RegistryWorker(req.getParameter("firstNameReg"), req.getParameter("lastNameReg"),
                     Integer.parseInt(req.getParameter("ageReg")), Sex.valueOf(req.getParameter("sexReg")),
                     Educations.valueOf(req.getParameter("educationReg")), Integer.parseInt(req.getParameter("experienceReg")),
@@ -82,16 +84,16 @@ public class AdminController implements Controller {
             user.setLogin(req.getParameter("loginReg"));
             user.setPassword(req.getParameter("passwordReg"));
             user.setRole(Roles.REG_WORKER);
-            if (!userService.getAllLogins().contains(user.getLogin())) {
-                userService.update(user);
-                boolean isCreatedReg = true;
-                req.setAttribute("isCreatedReg", isCreatedReg);
-            } else {
-                registryWorkerService.delete(registryWorker.getId());
-                userService.delete(user.getId());
-                String reapetedUser = "Current user is exist";
-                req.setAttribute("repReg", reapetedUser);
-            }
+//            if (!userService.getAllLogins().contains(user.getLogin())) {
+//                userService.update(user);
+//                boolean isCreatedReg = true;
+//                req.setAttribute("isCreatedReg", isCreatedReg);
+//            } else {
+//                registryWorkerService.delete(registryWorker.getId());
+//                userService.delete(user.getId());
+//                String reapetedUser = "Current user is exist";
+//                req.setAttribute("repReg", reapetedUser);
+//            }
         }
     }
 
@@ -108,9 +110,9 @@ public class AdminController implements Controller {
     private void deleteDoctor(HttpServletRequest req) {
         if (req.getParameter("delDocId") != null) {
             Doctor doctor = doctorService.get(Integer.parseInt(req.getParameter("delDocId")));
-            int deletedUserId = doctor.getUserId();
+            long deletedUserId = doctor.getUserId();
             doctorService.delete(Integer.parseInt(req.getParameter("delDocId")));
-            userService.delete(deletedUserId);
+            userDAO.deleteById(deletedUserId);
             boolean docIsDeleted = true;
             req.setAttribute("isDocDeleted", docIsDeleted);
         }
@@ -119,9 +121,9 @@ public class AdminController implements Controller {
     private void deleteRegWorker(HttpServletRequest req) {
         if (req.getParameter("delRegId") != null) {
             RegistryWorker registryWorker = registryWorkerService.get(Integer.parseInt(req.getParameter("delRegId")));
-            int deletedUserId = registryWorker.getUserId();
+            Long deletedUserId = registryWorker.getUserId();
             registryWorkerService.delete(Integer.parseInt(req.getParameter("delRegId")));
-            userService.delete(deletedUserId);
+            userDAO.deleteById(deletedUserId);
             boolean regIsDeleted = true;
             req.setAttribute("isRegDeleted", regIsDeleted);
         }

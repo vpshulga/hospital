@@ -21,7 +21,7 @@ public class Patient extends Person {
 
     public Patient(String firstName, String secondName, int age, Sex sex,
                    String cyty, String street, int house, int apartment, String complaint,
-                   int doctorId, String entranceDate, int userId) {
+                   int doctorId, String entranceDate, Long userId) {
         super(firstName, secondName, age, sex, userId);
         this.city = cyty;
         this.street = street;

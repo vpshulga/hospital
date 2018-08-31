@@ -111,7 +111,7 @@ public class PatientDAOImpl implements PatientDAO {
         psPatientSave.setString(6, patient.getComplaint());
         psPatientSave.setInt(7, patient.getDoctorId());
         psPatientSave.setString(8, patient.getEntranceDate());
-        psPatientSave.setInt(9, patient.getUserId());
+        psPatientSave.setLong(9, patient.getUserId());
         psPatientSave.executeUpdate();
         ResultSet rs1 = psPatientSave.getGeneratedKeys();
         if (rs1.next()) {
@@ -146,7 +146,7 @@ public class PatientDAOImpl implements PatientDAO {
                 patient.setComplaint(rs.getString(7));
                 patient.setDoctorId(rs.getInt(8));
                 patient.setEntranceDate(rs.getString(9));
-                patient.setUserId(rs.getInt(10));
+                patient.setUserId(rs.getLong(10));
             }
             DaoUtils.close(rs1);
         }
@@ -165,7 +165,7 @@ public class PatientDAOImpl implements PatientDAO {
         psPatientUpdate.setString(5, patient.getComplaint());
         psPatientUpdate.setInt(6, patient.getDoctorId());
         psPatientUpdate.setString(7, patient.getEntranceDate());
-        psPatientUpdate.setInt(8, patient.getUserId());
+        psPatientUpdate.setLong(8, patient.getUserId());
         psPatientUpdate.executeUpdate();
 
         psPatientGet.setInt(1, patient.getId());
@@ -221,7 +221,7 @@ public class PatientDAOImpl implements PatientDAO {
                 patient.setComplaint(rs.getString(7));
                 patient.setDoctorId(rs.getInt(8));
                 patient.setEntranceDate(rs.getString(9));
-                patient.setUserId(rs.getInt(10));
+                patient.setUserId(rs.getLong(10));
             }
             DaoUtils.close(rs1);
             patients.add(patient);
@@ -254,7 +254,7 @@ public class PatientDAOImpl implements PatientDAO {
                 patient.setComplaint(rs.getString(7));
                 patient.setDoctorId(rs.getInt(8));
                 patient.setEntranceDate(rs.getString(9));
-                patient.setUserId(rs.getInt(10));
+                patient.setUserId(rs.getLong(10));
             }
             DaoUtils.close(rs1);
         }

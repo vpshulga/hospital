@@ -24,7 +24,7 @@ public class DoctorController implements Controller {
     private PatientService patientService = PatientServiceImpl.getInstance();
     private DoctorService doctorService = DoctorServiceImpl.getInstance();
     private DiagnosysService diagnosysService = DiagnosysServiceImpl.getInstance();
-    private UserService userService = UserServiceImpl.getInstance();
+//    private UserService userService = UserServiceImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -104,11 +104,11 @@ public class DoctorController implements Controller {
     private void deletePatient(HttpServletRequest req) {
         if (req.getParameter("delPatId") != null) {
             Patient patient = patientService.get(Integer.parseInt(req.getParameter("delPatId")));
-            int deletedUserId = patient.getUserId();
+//            int deletedUserId = patient.getUserId();
             appointmentService.deleteByPatId(patient.getId());
             diagnosysService.deleteByPatId(patient.getId());
             patientService.delete(Integer.parseInt(req.getParameter("delPatId")));
-            userService.delete(deletedUserId);
+//            userService.delete(deletedUserId);
             boolean isDeleted = true;
             req.setAttribute("isDeleted", isDeleted);
         }

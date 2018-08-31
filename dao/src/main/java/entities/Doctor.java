@@ -12,7 +12,7 @@ public class Doctor extends MedWorker {
     }
 
     public Doctor(String firstName, String lastName, int age, Sex sex,
-                  Educations education, int experience, Specialties spetialty, int userId) {
+                  Educations education, int experience, Specialties spetialty, Long userId) {
         super(firstName, lastName, age, sex, education, experience, userId);
         this.spetialty = spetialty;
     }
